@@ -17,9 +17,9 @@ const Navbar = () => {
           <li className="cursor-pointer hover:text-yellow-300">Home</li>
         </Link>
 
-       <Link to={"/register"}>
-         <li className="cursor-pointer hover:text-yellow-300">Give Salami</li>
-       </Link>
+        <Link to={"/register"}>
+          <li className="cursor-pointer hover:text-yellow-300">Give Salami</li>
+        </Link>
 
         <Link to={"/register"}>
           <li className="cursor-pointer hover:text-yellow-300">Requests</li>
@@ -44,15 +44,16 @@ const Navbar = () => {
 
           {profileOpen && (
             <div className="absolute right-0 mt-3 bg-white text-black rounded shadow-md w-40 z-50">
-              <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Profile
-              </div>
-              <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                My Batch Info
-              </div>
-              <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Settings
-              </div>
+              <Link to={"/myProfile"}>
+                <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  Profile
+                </div>
+              </Link>
+              <Link to="/cse3">
+                <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  My Batch Info
+                </div>
+              </Link>
               <div className="px-4 py-2 hover:bg-red-100 text-red-600 cursor-pointer">
                 Logout
               </div>
