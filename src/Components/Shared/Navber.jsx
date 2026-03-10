@@ -13,8 +13,13 @@ const Navbar = () => {
 
       {/* Menu */}
       <ul className="flex gap-6 items-center">
+
         <Link to={"/"}>
           <li className="cursor-pointer hover:text-yellow-300">Home</li>
+        </Link>
+
+         <Link to={"/dashboard"}>
+          <li className="cursor-pointer hover:text-yellow-300">Admin Dashboard</li>
         </Link>
 
         <Link to={"/register"}>
