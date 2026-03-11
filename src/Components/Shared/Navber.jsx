@@ -1,34 +1,75 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router";
 
 const Navbar = () => {
   const [profileOpen, setProfileOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
+
+  // Watch localStorage changes
+  useEffect(() => {
+    const checkUser = () => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      setUser(storedUser);
+    };
+
+    checkUser();
+    window.addEventListener("storage", checkUser);
+    return () => window.removeEventListener("storage", checkUser);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/");
+  };
+
+  const handleRequestClick = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn) {
+      navigate("/register");
+    } else {
+      navigate("/requests");
+    }
+  };
 
   return (
     <nav className="bg-blue-900 text-white px-6 py-4 flex justify-between items-center">
       {/* Logo */}
-      <Link to={"/"}>
+      <Link to="/">
         <div className="text-xl font-bold">SalamiSystem</div>
       </Link>
 
       {/* Menu */}
       <ul className="flex gap-6 items-center">
-
-        <Link to={"/"}>
+        <Link to="/">
           <li className="cursor-pointer hover:text-yellow-300">Home</li>
         </Link>
 
-         <Link to={"/dashboard"}>
+        <Link to="/dashboard">
           <li className="cursor-pointer hover:text-yellow-300">Admin Dashboard</li>
         </Link>
 
-        <Link to={"/register"}>
+        <Link to="/register">
           <li className="cursor-pointer hover:text-yellow-300">Give Salami</li>
         </Link>
 
-        <Link to={"/register"}>
-          <li className="cursor-pointer hover:text-yellow-300">Requests</li>
-        </Link>
+        {/* Requests */}
+        <li
+          onClick={handleRequestClick}
+          className="cursor-pointer hover:text-yellow-300"
+        >
+          Requests
+        </li>
+
+        {/* Batch Show */}
+        {user && user.batch && (
+          <li className="bg-yellow-400 text-black px-3 py-1 rounded font-semibold">
+            Batch {user.batch}
+          </li>
+        )}
 
         {/* Notification */}
         <li className="relative cursor-pointer">
@@ -49,19 +90,29 @@ const Navbar = () => {
 
           {profileOpen && (
             <div className="absolute right-0 mt-3 bg-white text-black rounded shadow-md w-40 z-50">
-              <Link to={"/myProfile"}>
+              
+              <Link to="/myProfile">
                 <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                   Profile
                 </div>
               </Link>
-              <Link to="/cse3">
-                <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  My Batch Info
-                </div>
-              </Link>
-              <div className="px-4 py-2 hover:bg-red-100 text-red-600 cursor-pointer">
+
+              {/* Dynamic My Batch Info */}
+              {user && user.batch && (
+                <Link to={`/cse${user.batch}`}>
+                  <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    My Batch Info
+                  </div>
+                </Link>
+              )}
+
+              <div
+                onClick={handleLogout}
+                className="px-4 py-2 hover:bg-red-100 text-red-600 cursor-pointer"
+              >
                 Logout
               </div>
+
             </div>
           )}
         </li>

@@ -16,6 +16,13 @@ import SalamiTransactions from "../Dashboard/Admin/SalamiTransactions";
 import ReportSystem from "../Dashboard/Admin/ReportSystem";
 import LeaderboardControl from "../Dashboard/Admin/LeaderboardControl";
 import Dashboard from "../Components/Layout/Dashboard";
+import RequestInfo from "../Components/RequestInfo/RequestInfo";
+import Cse1 from "../Components/BatchInfo/Cse1";
+import Cse2 from "../Components/BatchInfo/Cse2";
+import Cse4 from "../Components/BatchInfo/Cse4";
+import Cse5 from "../Components/BatchInfo/Cse5";
+import Cse6 from "../Components/BatchInfo/Cse6";
+
 
 export const router = createBrowserRouter([
   {
@@ -38,9 +45,33 @@ export const router = createBrowserRouter([
             path:"cse3",
             element:<Cse3></Cse3>
         },
+         {
+            path:"cse1",
+            element:<Cse1></Cse1>
+        },
+         {
+            path:"cse2",
+            element:<Cse2></Cse2>
+        },
+         {
+            path:"cse4",
+            element:<Cse4></Cse4>
+        },
+         {
+            path:"cse5",
+            element:<Cse5></Cse5>
+        },
+         {
+            path:"cse6",
+            element:<Cse6></Cse6>
+        },
         {
             path:"myProfile",
             element:<Profile></Profile>
+        },
+        {
+            path:"requests",
+            element:<RequestInfo></RequestInfo>
         }
     ]
   },

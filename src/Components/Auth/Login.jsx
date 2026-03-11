@@ -1,6 +1,6 @@
-"use client";
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -8,14 +8,34 @@ const Login = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login data:", form);
-    alert("Login submitted!");
+
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (
+      storedUser &&
+      storedUser.email === form.email &&
+      storedUser.password === form.password
+    ) {
+      // save login state
+      localStorage.setItem("isLoggedIn", true);
+      console.log("Login data",form)
+
+      toast.success("Login Successful 🎉");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    } else {
+      toast.error("Invalid Email or Password ❌");
+    }
   };
 
   const card = [
@@ -29,11 +49,12 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-black">
-      {/* Left Side: Login Form */}
-      <div className="md:w-1/2 rounded-3xl p-4  md:mt-4 md:mb-2 flex flex-col justify-center px-8 md:px-16 py-12 bg-white">
+      {/* Left Side */}
+      <div className="md:w-1/2 rounded-3xl p-4 md:mt-4 md:mb-2 flex flex-col justify-center px-8 md:px-16 py-12 bg-white">
         <h2 className="text-3xl font-bold mb-6 text-[#0D4444]">
           Welcome Back!
         </h2>
+
         <p className="mb-8 text-gray-600">
           Login to your account to send and receive digital salami this Eid.
         </p>
@@ -67,7 +88,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Register Bio / Link */}
         <p className="mt-4 text-sm text-gray-500">
           Don't have an account?{" "}
           <Link to="/register" className="text-yellow-400 hover:underline">
@@ -76,7 +96,7 @@ const Login = () => {
         </p>
       </div>
 
-      {/* Right Side: Image */}
+      {/* Right Side */}
       <div className="md:w-1/2">
         <img
           src={card[0].image}
