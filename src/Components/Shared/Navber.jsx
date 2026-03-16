@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
+import Eid from "../../assets/image/images.jpg"
 
 const Navbar = () => {
   const [profileOpen, setProfileOpen] = useState(false);
@@ -39,7 +40,14 @@ const Navbar = () => {
     <nav className="bg-blue-900 text-white px-6 py-4 flex justify-between items-center">
       {/* Logo */}
       <Link to="/">
-        <div className="text-xl font-bold">SalamiSystem</div>
+      
+        <div className="flex gap-1">
+            <img src={Eid} alt=""
+        className="w-10 h-10"
+      />
+        <div className="text-xl font-bold mt-2">SalamiSystem
+        </div>
+        </div>
       </Link>
 
       {/* Menu */}
