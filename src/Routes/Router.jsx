@@ -22,6 +22,7 @@ import Cse2 from "../Components/BatchInfo/Cse2";
 import Cse4 from "../Components/BatchInfo/Cse4";
 import Cse5 from "../Components/BatchInfo/Cse5";
 import Cse6 from "../Components/BatchInfo/Cse6";
+import Salami from "../Components/GiveSalami/Salami";
 
 
 export const router = createBrowserRouter([
@@ -72,6 +73,11 @@ export const router = createBrowserRouter([
         {
             path:"requests",
             element:<RequestInfo></RequestInfo>
+        },
+        
+        {
+            path:"salami",
+            element:<Salami></Salami>
         }
     ]
   },
